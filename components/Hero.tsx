@@ -10,52 +10,78 @@ function PlayIcon({ className = '' }: { className?: string }) {
   )
 }
 
-/** Luffy leans toward the cursor — eased translate + a small pivot at his feet. */
-function useMouseFollow() {
-  const ref = useRef<HTMLDivElement>(null)
+/**
+ * Scrub the hero video off horizontal mouse movement.
+ *
+ * Every `mousemove` compares against the previous X, turns the delta into a
+ * fraction of the viewport width, and scales it to a slice of the clip:
+ *   (delta / innerWidth) * SENSITIVITY * duration
+ * `targetTime` accumulates (clamped to the clip) and a single in-flight seek is
+ * kept — the `seeked` handler re-fires only if the target drifted while it was
+ * busy, so fast flicks never flood the decoder.
+ *
+ * Touch / reduced-motion get a plain autoplaying loop instead.
+ */
+const SENSITIVITY = 0.8
+
+function useVideoScrub() {
+  const ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    if (
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      !window.matchMedia('(pointer: fine)').matches
-    ) {
+    const video = ref.current
+    if (!video) return
+
+    const finePointer = window.matchMedia('(pointer: fine)').matches
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
+    if (!finePointer || reduceMotion) {
+      video.loop = true
+      video.play().catch(() => {})
       return
     }
 
-    const target = { x: 0, y: 0 }
-    const current = { x: 0, y: 0 }
-    let raf = 0
+    let prevX: number | null = null
+    let targetTime = 0
+    let seeking = false
+
+    const seek = () => {
+      if (!Number.isFinite(video.duration) || video.duration === 0) return
+      seeking = true
+      video.currentTime = targetTime
+    }
+
+    const onSeeked = () => {
+      if (Math.abs(video.currentTime - targetTime) > 0.01) {
+        seek()
+      } else {
+        seeking = false
+      }
+    }
 
     const onMove = (e: MouseEvent) => {
-      target.x = (e.clientX / window.innerWidth) * 2 - 1
-      target.y = (e.clientY / window.innerHeight) * 2 - 1
+      if (!Number.isFinite(video.duration) || video.duration === 0) return
+      if (prevX === null) {
+        prevX = e.clientX
+        return
+      }
+      const delta = e.clientX - prevX
+      prevX = e.clientX
+
+      targetTime += (delta / window.innerWidth) * SENSITIVITY * video.duration
+      targetTime = Math.max(0, Math.min(video.duration, targetTime))
+
+      if (!seeking) seek()
     }
 
-    const onLeave = () => {
-      target.x = 0
-      target.y = 0
-    }
-
-    const tick = () => {
-      current.x += (target.x - current.x) * 0.06
-      current.y += (target.y - current.y) * 0.06
-      const tx = current.x * 28
-      const ty = current.y * 16
-      const rot = current.x * 2.6
-      el.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${rot}deg)`
-      raf = requestAnimationFrame(tick)
-    }
-
-    raf = requestAnimationFrame(tick)
+    video.pause()
+    video.addEventListener('seeked', onSeeked)
     window.addEventListener('mousemove', onMove, { passive: true })
-    document.addEventListener('mouseleave', onLeave)
 
     return () => {
-      cancelAnimationFrame(raf)
+      video.removeEventListener('seeked', onSeeked)
       window.removeEventListener('mousemove', onMove)
-      document.removeEventListener('mouseleave', onLeave)
     }
   }, [])
 
@@ -64,7 +90,7 @@ function useMouseFollow() {
 
 export default function Hero() {
   const [showSynopsis, setShowSynopsis] = useState(false)
-  const followRef = useMouseFollow()
+  const videoRef = useVideoScrub()
 
   return (
     <section
@@ -85,17 +111,16 @@ export default function Hero() {
       {/* Luffy — the captain */}
       <div className="pointer-events-none absolute bottom-0 right-0 z-10 flex translate-x-[24%] items-end justify-end sm:translate-x-0 sm:pr-[4%]">
         <div
-          ref={followRef}
           className="will-change-transform"
           style={{ transformOrigin: 'bottom center' }}
         >
           <div className="anim-bob relative">
             <video
+              ref={videoRef}
               className="h-[46svh] w-auto max-w-none object-contain opacity-90 drop-shadow-[0_30px_45px_rgba(0,0,0,0.6)] sm:h-[72svh] sm:opacity-100 lg:h-[82svh]"
-              autoPlay
-              loop
               muted
               playsInline
+              preload="auto"
               poster="/media/luffy-hero-poster.webp"
             >
               <source src="/media/luffy-hero.webm" type="video/webm" />
