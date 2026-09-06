@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+/* ============================================================
+   GRAND LINE — One Piece live-action series
+   Theme: ocean at dusk. Straw-hat gold, pirate red, sunset
+   orange over a deep navy abyss, with wanted-poster parchment
+   as the recurring texture.
+   ============================================================ */
+
+@theme {
+  --color-abyss: #05070f;
+  --color-ink: #0a0e1a;
+  --color-ink-2: #121a2c;
+  --color-surface: #141d31;
+  --color-gold: #ffc24a;
+  --color-gold-deep: #f4a52c;
+  --color-pirate: #e5372a;
+  --color-pirate-deep: #b31f16;
+  --color-sunset: #ff7a3d;
+  --color-sea: #2f7df0;
+  --color-parchment: #ecdcb6;
+  --color-parchment-deep: #d8c092;
+  --color-bone: #f6f1e4;
+  --color-fog: #aeb9d4;
+
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-condensed: var(--font-oswald), "Arial Narrow", sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-jp: var(--font-shippori), "Yu Mincho", serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #1a1204;
+}
+
+/* --- Display type helpers --------------------------------- */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+}
+
+.font-condensed {
+  font-family: var(--font-condensed);
+}
+
+.tracking-mega {
+  letter-spacing: 0.34em;
+}
+
+.tracking-wide-caps {
+  letter-spacing: 0.22em;
+}
+
+/* --- Textures -------------------------------------------- */
+
+/* fine film grain, sits over everything */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* aged paper for wanted posters */
+.parchment {
+  background-color: var(--color-parchment);
+  background-image:
+    radial-gradient(ellipse at 22% 18%, rgba(120, 82, 30, 0.18), transparent 55%),
+    radial-gradient(ellipse at 82% 88%, rgba(96, 60, 18, 0.26), transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 250, 232, 0.5), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.35'/%3E%3C/svg%3E");
+  color: #3a2a12;
+  box-shadow:
+    inset 0 0 40px rgba(90, 58, 20, 0.35),
+    inset 0 0 4px rgba(60, 38, 10, 0.6);
+}
+
+/* horizon glow used behind the hero */
+.dusk-sky {
+  background:
+    radial-gradient(120% 80% at 50% 118%, rgba(255, 138, 66, 0.55) 0%, rgba(255, 122, 61, 0.18) 26%, transparent 55%),
+    radial-gradient(140% 90% at 78% 8%, rgba(93, 58, 140, 0.5) 0%, transparent 55%),
+    linear-gradient(180deg, #070b17 0%, #0d1022 34%, #241633 68%, #4a2740 84%, #7d3b3a 100%);
+}
+
+.hairline {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Scroll reveal -------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* --- Animations ---------------------------------------- */
+@keyframes drift {
+  from {
+    transform: translateX(-4%);
+  }
+  to {
+    transform: translateX(4%);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes shadow-pulse {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scaleX(0.82);
+    opacity: 0.28;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80%,
+  100% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+}
+
+.anim-drift {
+  animation: drift 26s ease-in-out infinite alternate;
+}
+.anim-bob {
+  animation: bob 6s ease-in-out infinite;
+}
+.anim-shadow {
+  animation: shadow-pulse 6s ease-in-out infinite;
+}
+
+/* --- Horizontal rails --------------------------------- */
+.rail {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+.rail > * {
+  scroll-snap-align: start;
+}
