@@ -21,47 +21,51 @@ function Profile({ member: m, index }: { member: Member; index: number }) {
   return (
     <Reveal
       as="article"
-      className="grid items-center gap-8 border-t border-white/10 py-14 sm:py-20 lg:grid-cols-2 lg:gap-16"
+      className={`grid items-center gap-8 border-t border-white/10 py-12 sm:py-16 md:gap-10 lg:grid-cols-2 lg:gap-16 ${
+        flip
+          ? 'md:grid-cols-[1fr_minmax(0,240px)]'
+          : 'md:grid-cols-[minmax(0,240px)_1fr]'
+      }`}
     >
       {/* portrait */}
       <div
-        className={`relative mx-auto flex w-full max-w-[420px] flex-col items-center ${
-          flip ? 'lg:order-2' : ''
+        className={`relative mx-auto flex w-full max-w-[300px] flex-col items-center sm:max-w-[420px] md:max-w-none ${
+          flip ? 'md:order-2' : ''
         }`}
       >
         <div
-          className="absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl"
+          className="absolute left-1/2 top-1/2 -z-10 h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl sm:h-[300px] sm:w-[300px]"
           style={{ background: m.accent }}
         />
-        <JollyRoger className="absolute left-1/2 top-1/2 -z-10 h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 text-white/[0.045]" />
+        <JollyRoger className="absolute left-1/2 top-1/2 -z-10 h-[200px] w-[200px] -translate-x-1/2 -translate-y-1/2 text-white/[0.045] sm:h-[280px] sm:w-[280px]" />
         <img
           src={m.portrait}
           alt={m.name}
-          className="h-[360px] w-auto object-contain drop-shadow-[0_30px_45px_rgba(0,0,0,0.55)] sm:h-[460px] lg:h-[500px]"
+          className="h-[280px] w-auto object-contain drop-shadow-[0_30px_45px_rgba(0,0,0,0.55)] sm:h-[380px] md:h-[340px] lg:h-[460px]"
           loading="lazy"
         />
-        <div className="mt-4 flex items-center gap-2 rounded-full border border-white/15 bg-ink/85 px-4 py-1.5 backdrop-blur-sm">
-          <Berry className="h-4 w-4 text-gold" />
+        <div className="mt-4 flex items-center gap-2 rounded-full border border-white/15 bg-ink/85 px-3 py-1.5 backdrop-blur-sm sm:px-4">
+          <Berry className="h-4 w-4 shrink-0 text-gold" />
           <span className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
             Bounty
           </span>
-          <span className="font-display text-base text-gold">{m.bounty}</span>
+          <span className="font-display text-sm text-gold sm:text-base">{m.bounty}</span>
         </div>
       </div>
 
       {/* dossier */}
-      <div className={flip ? 'lg:order-1' : ''}>
+      <div className={`@container ${flip ? 'md:order-1' : ''}`}>
         <p
           className="font-condensed text-xs tracking-mega uppercase"
           style={{ color: m.accent }}
         >
           &ldquo;{m.epithet}&rdquo;
         </p>
-        <h3 className="mt-2 font-display text-[clamp(2rem,5vw,3.5rem)] text-bone">
+        <h3 className="mt-2 font-display text-[clamp(1.9rem,7vw,3.5rem)] text-bone">
           {m.name}
         </h3>
 
-        <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:max-w-md">
+        <dl className="mt-4 grid grid-cols-1 gap-x-6 gap-y-3 text-sm @[24rem]:grid-cols-2 @[24rem]:max-w-md">
           <div>
             <dt className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
               Role
@@ -115,20 +119,20 @@ function Profile({ member: m, index }: { member: Member; index: number }) {
         </div>
 
         {/* traits + first bounty */}
-        <div className="mt-6 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
+        <div className="mt-6 flex flex-col gap-5 min-[420px]:flex-row min-[420px]:items-end min-[420px]:justify-between">
           <ul className="space-y-1.5 text-[13px] text-fog">
             {m.traits.map((t) => (
               <li key={t} className="flex gap-2">
-                <span style={{ color: m.accent }}>—</span>
+                <span style={{ color: m.accent }}>·</span>
                 <span>{t}</span>
               </li>
             ))}
           </ul>
-          <div className="shrink-0 sm:text-right">
+          <div className="shrink-0 min-[420px]:text-right">
             <p className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
               First Bounty
             </p>
-            <p className="flex items-center gap-1.5 font-display text-lg text-bone sm:justify-end">
+            <p className="flex items-center gap-1.5 font-display text-lg text-bone min-[420px]:justify-end">
               <Berry className="h-4 w-4 text-fog" />
               {m.firstBounty}
             </p>
@@ -141,13 +145,13 @@ function Profile({ member: m, index }: { member: Member; index: number }) {
 
 export default function Crew() {
   return (
-    <section id="crew" className="relative bg-ink px-5 py-24 sm:px-8 sm:py-28">
+    <section id="crew" className="relative bg-ink px-5 py-16 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-[1400px]">
         <Reveal>
           <p className="font-condensed text-xs tracking-mega text-gold uppercase">
             The Straw Hat Pirates
           </p>
-          <h2 className="mt-3 font-display text-[clamp(2.5rem,7vw,5rem)] text-bone">
+          <h2 className="mt-3 font-display text-[clamp(2.25rem,9vw,5rem)] text-bone">
             THE CREW
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-fog">

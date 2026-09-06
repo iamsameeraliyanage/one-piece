@@ -26,7 +26,7 @@ function OnePieceMark({ className = '' }: { className?: string }) {
 
       <circle cx="32" cy="33" r="21" stroke="url(#op-ring)" strokeWidth="3" />
 
-      {/* crossed cutlasses — one path, mirrored across the centre line */}
+      {/* crossed cutlasses: one path, mirrored across the centre line */}
       <g strokeLinecap="round" strokeLinejoin="round">
         {[1, -1].map((s) => (
           <g

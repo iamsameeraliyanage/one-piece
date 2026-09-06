@@ -3,7 +3,7 @@ import Reveal from './Reveal'
 
 export default function WorldBand() {
   return (
-    <section id="world" className="relative overflow-hidden bg-abyss px-5 py-24 sm:px-8 sm:py-32">
+    <section id="world" className="relative overflow-hidden bg-abyss px-5 py-16 sm:px-8 sm:py-28">
       {/* faint sea-chart wash */}
       <div
         aria-hidden
@@ -24,10 +24,10 @@ export default function WorldBand() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:mt-14 sm:grid-cols-2 md:grid-cols-4">
           {WORLD.map((w, i) => (
-            <Reveal key={w.k} delay={i * 80} className="bg-ink p-7">
-              <p className="font-display text-5xl text-white/10">0{i + 1}</p>
+            <Reveal key={w.k} delay={i * 80} className="bg-ink p-6 sm:p-7">
+              <p className="font-display text-4xl text-white/10 sm:text-5xl">0{i + 1}</p>
               <h3 className="mt-3 font-condensed text-lg font-medium tracking-wide text-gold uppercase">
                 {w.k}
               </h3>
@@ -37,11 +37,11 @@ export default function WorldBand() {
         </div>
 
         {/* closing band */}
-        <Reveal className="mt-20 flex flex-col items-center gap-6 rounded-3xl border border-gold/25 bg-gradient-to-b from-surface to-ink px-6 py-16 text-center">
-          <p className="font-jp text-lg tracking-[0.3em] text-gold">
+        <Reveal className="mt-14 flex flex-col items-center gap-5 rounded-3xl border border-gold/25 bg-gradient-to-b from-surface to-ink px-5 py-12 text-center sm:mt-20 sm:gap-6 sm:px-6 sm:py-16">
+          <p className="font-jp text-base tracking-[0.3em] text-gold sm:text-lg">
             海賊王に、おれはなる！
           </p>
-          <h3 className="font-display text-[clamp(2rem,6vw,3.75rem)] text-bone">
+          <h3 className="font-display text-[clamp(1.75rem,7vw,3.75rem)] text-bone">
             &ldquo;I&apos;M GONNA BE KING OF THE PIRATES&rdquo;
           </h3>
           <p className="max-w-md text-sm leading-relaxed text-fog">

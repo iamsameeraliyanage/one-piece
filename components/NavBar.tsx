@@ -23,12 +23,12 @@ export default function NavBar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        solid
-          ? 'bg-ink/85 backdrop-blur-md border-b border-white/10'
+        solid || open
+          ? 'bg-ink/90 backdrop-blur-md border-b border-white/10'
           : 'bg-gradient-to-b from-black/55 to-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 py-3.5 sm:px-8">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 sm:px-8 sm:py-3.5">
         <a href="#top" className="flex items-center gap-2.5 sm:gap-3">
           <OnePieceLogo />
         </a>
@@ -54,10 +54,10 @@ export default function NavBar() {
           </a>
           <button
             type="button"
-            aria-label="Menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
+            className="-mr-2 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
           >
             <span
               className="h-[2px] w-5 bg-bone transition-transform"
