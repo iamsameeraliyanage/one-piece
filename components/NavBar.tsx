@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import JollyRoger from './JollyRoger'
+import OnePieceLogo from './OnePieceLogo'
 
 const LINKS = [
   ['Crew', '#crew'],
@@ -30,11 +30,8 @@ export default function NavBar() {
       }`}
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 py-3.5 sm:px-8">
-        <a href="#top" className="flex items-center gap-2.5">
-          <JollyRoger className="h-8 w-8 text-gold" />
-          <span className="font-display text-lg tracking-wide-caps text-bone sm:text-xl">
-            GRAND<span className="text-pirate">·</span>LINE
-          </span>
+        <a href="#top" className="flex items-center gap-2.5 sm:gap-3">
+          <OnePieceLogo />
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">

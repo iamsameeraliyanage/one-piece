@@ -1,4 +1,4 @@
-import JollyRoger from './JollyRoger'
+import OnePieceLogo from './OnePieceLogo'
 
 const COLUMNS: [string, string[]][] = [
   ['Series', ['Overview', 'Episodes', 'Trailers', 'The Crew']],
@@ -20,11 +20,8 @@ export default function Footer() {
 
         <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <a href="#top" className="flex items-center gap-2.5">
-              <JollyRoger className="h-8 w-8 text-gold" />
-              <span className="font-display text-lg tracking-wide-caps text-bone">
-                GRAND<span className="text-pirate">·</span>LINE
-              </span>
+            <a href="#top" className="flex items-center gap-2.5 sm:gap-3">
+              <OnePieceLogo />
             </a>
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-fog/70">
               A fan-made concept site celebrating the live-action voyage. Not

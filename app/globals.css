@@ -72,6 +72,36 @@ body {
   letter-spacing: 0.22em;
 }
 
+/* --- ONE PIECE logo -------------------------------------- */
+.op-logo-text {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  line-height: 1;
+  background: linear-gradient(
+    180deg,
+    #dcecff 0%,
+    #7db0e6 22%,
+    #2f74c8 44%,
+    #14458f 62%,
+    #0d2f6b 78%,
+    #4d8bd0 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 0.8px rgba(203, 160, 92, 0.85);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22),
+    0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.op-logo-jp {
+  font-family: var(--font-jp);
+  color: #cfe2f7;
+  opacity: 0.3;
+  letter-spacing: 0.12em;
+}
+
 /* --- Textures -------------------------------------------- */
 
 /* fine film grain, sits over everything */
