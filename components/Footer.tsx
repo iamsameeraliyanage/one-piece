@@ -1,9 +1,9 @@
 import OnePieceLogo from './OnePieceLogo'
 
 const COLUMNS: [string, string[]][] = [
-  ['Series', ['Overview', 'Episodes', 'Trailers', 'The Crew']],
-  ['World', ['East Blue', 'Devil Fruits', 'The Grand Line', 'Glossary']],
-  ['More', ['Press Kit', 'Soundtrack', 'Behind the Scenes', 'Help']],
+  ['The Crew', ['Luffy', 'Zoro', 'Nami', 'Usopp', 'Sanji']],
+  ['Powers', ['Devil Fruits', 'Haki', 'Santoryu', 'Clima-Tact', 'Black Leg']],
+  ['The World', ['East Blue', 'The Grand Line', 'The One Piece', 'Glossary']],
 ]
 
 export default function Footer() {
@@ -24,8 +24,8 @@ export default function Footer() {
               <OnePieceLogo />
             </a>
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-fog/70">
-              A fan-made concept site celebrating the live-action voyage. Not
-              affiliated with Eiichiro Oda, Toei Animation, or Netflix.
+              A fan-made tribute to Eiichiro Oda&apos;s ONE PIECE and its crew. Not
+              affiliated with Shueisha or Toei Animation.
             </p>
           </div>
 

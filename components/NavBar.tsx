@@ -5,8 +5,7 @@ import OnePieceLogo from './OnePieceLogo'
 
 const LINKS = [
   ['Crew', '#crew'],
-  ['Episodes', '#episodes'],
-  ['Trailers', '#trailers'],
+  ['Abilities', '#abilities'],
   ['World', '#world'],
 ] as const
 
@@ -47,12 +46,12 @@ export default function NavBar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
+          <a
+            href="#crew"
             className="hidden rounded-full border border-gold/70 px-4 py-1.5 font-condensed text-xs tracking-wide-caps text-gold uppercase transition-colors hover:bg-gold hover:text-ink sm:block"
           >
-            Sign In
-          </button>
+            Meet the Crew
+          </a>
           <button
             type="button"
             aria-label="Menu"
@@ -93,12 +92,13 @@ export default function NavBar() {
                 {label}
               </a>
             ))}
-            <button
-              type="button"
-              className="mt-3 rounded-full border border-gold/70 px-4 py-2 font-condensed text-sm tracking-wide-caps text-gold uppercase"
+            <a
+              href="#crew"
+              onClick={() => setOpen(false)}
+              className="mt-3 rounded-full border border-gold/70 px-4 py-2 text-center font-condensed text-sm tracking-wide-caps text-gold uppercase"
             >
-              Sign In
-            </button>
+              Meet the Crew
+            </a>
           </nav>
         </div>
       </div>

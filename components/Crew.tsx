@@ -1,4 +1,4 @@
-import { CREW } from './data'
+import { CREW, type Member } from './data'
 import JollyRoger from './JollyRoger'
 import Reveal from './Reveal'
 
@@ -15,121 +15,150 @@ function Berry({ className = '' }: { className?: string }) {
   )
 }
 
-export default function Crew() {
-  const [captain, ...rest] = CREW
+function Profile({ member: m, index }: { member: Member; index: number }) {
+  const flip = index % 2 === 1
 
   return (
-    <section id="crew" className="relative bg-ink px-5 py-24 sm:px-8 sm:py-32">
+    <Reveal
+      as="article"
+      className="grid items-center gap-8 border-t border-white/10 py-14 sm:py-20 lg:grid-cols-2 lg:gap-16"
+    >
+      {/* portrait */}
+      <div
+        className={`relative mx-auto flex w-full max-w-[420px] flex-col items-center ${
+          flip ? 'lg:order-2' : ''
+        }`}
+      >
+        <div
+          className="absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl"
+          style={{ background: m.accent }}
+        />
+        <JollyRoger className="absolute left-1/2 top-1/2 -z-10 h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 text-white/[0.045]" />
+        <img
+          src={m.portrait}
+          alt={m.name}
+          className="h-[360px] w-auto object-contain drop-shadow-[0_30px_45px_rgba(0,0,0,0.55)] sm:h-[460px] lg:h-[500px]"
+          loading="lazy"
+        />
+        <div className="mt-4 flex items-center gap-2 rounded-full border border-white/15 bg-ink/85 px-4 py-1.5 backdrop-blur-sm">
+          <Berry className="h-4 w-4 text-gold" />
+          <span className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
+            Bounty
+          </span>
+          <span className="font-display text-base text-gold">{m.bounty}</span>
+        </div>
+      </div>
+
+      {/* dossier */}
+      <div className={flip ? 'lg:order-1' : ''}>
+        <p
+          className="font-condensed text-xs tracking-mega uppercase"
+          style={{ color: m.accent }}
+        >
+          &ldquo;{m.epithet}&rdquo;
+        </p>
+        <h3 className="mt-2 font-display text-[clamp(2rem,5vw,3.5rem)] text-bone">
+          {m.name}
+        </h3>
+
+        <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:max-w-md">
+          <div>
+            <dt className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
+              Role
+            </dt>
+            <dd className="text-bone">{m.role}</dd>
+          </div>
+          <div>
+            <dt className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
+              From
+            </dt>
+            <dd className="text-bone">{m.origin}</dd>
+          </div>
+          <div>
+            <dt className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
+              Home Sea
+            </dt>
+            <dd className="text-bone">{m.sea}</dd>
+          </div>
+          <div>
+            <dt className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
+              Dream
+            </dt>
+            <dd className="text-bone">{m.dream}</dd>
+          </div>
+        </dl>
+
+        <p className="mt-5 max-w-xl text-[13px] leading-relaxed text-fog sm:text-sm">
+          {m.about}
+        </p>
+
+        {/* powers */}
+        <div className="mt-6">
+          <p className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
+            Powers &amp; Style
+          </p>
+          <p className="mt-1 font-condensed text-lg font-medium text-bone">
+            {m.power}
+          </p>
+          <p className="text-xs text-fog/80">{m.powerType}</p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {m.abilities.map((a) => (
+              <li
+                key={a}
+                className="rounded-full border px-2.5 py-1 text-[11px] text-bone/90"
+                style={{ borderColor: `${m.accent}66` }}
+              >
+                {a}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* traits + first bounty */}
+        <div className="mt-6 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
+          <ul className="space-y-1.5 text-[13px] text-fog">
+            {m.traits.map((t) => (
+              <li key={t} className="flex gap-2">
+                <span style={{ color: m.accent }}>—</span>
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="shrink-0 sm:text-right">
+            <p className="font-condensed text-[10px] tracking-mega text-fog/60 uppercase">
+              First Bounty
+            </p>
+            <p className="flex items-center gap-1.5 font-display text-lg text-bone sm:justify-end">
+              <Berry className="h-4 w-4 text-fog" />
+              {m.firstBounty}
+            </p>
+          </div>
+        </div>
+      </div>
+    </Reveal>
+  )
+}
+
+export default function Crew() {
+  return (
+    <section id="crew" className="relative bg-ink px-5 py-24 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-[1400px]">
         <Reveal>
           <p className="font-condensed text-xs tracking-mega text-gold uppercase">
             The Straw Hat Pirates
           </p>
           <h2 className="mt-3 font-display text-[clamp(2.5rem,7vw,5rem)] text-bone">
-            MEET THE CREW
+            THE CREW
           </h2>
-          <p className="mt-4 max-w-lg text-sm leading-relaxed text-fog">
-            Five people who would never have met on land. Every one of them signed on
-            for a different reason — and none of those reasons was safety.
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-fog">
+            Five members, five reasons for going to sea. Origins, bounties, dreams
+            and every technique they bring to a fight.
           </p>
         </Reveal>
 
-        {/* Captain — featured */}
-        <Reveal className="mt-14 grid gap-8 rounded-3xl border border-white/10 bg-gradient-to-br from-surface to-ink-2 p-6 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
-          <div className="relative mx-auto w-full max-w-[320px]">
-            <div className="absolute inset-0 -z-10 rounded-full bg-gold/20 blur-3xl" />
-            <img
-              src={captain.portrait}
-              alt={captain.name}
-              className="mx-auto w-full drop-shadow-[0_25px_40px_rgba(0,0,0,0.55)]"
-              loading="lazy"
-            />
-            <span className="absolute -right-2 top-2 grid h-24 w-24 -rotate-12 place-items-center rounded-full border-[3px] border-pirate/80 text-center font-condensed text-[11px] font-semibold leading-tight tracking-wide-caps text-pirate uppercase">
-              Dead
-              <br />
-              or
-              <br />
-              Alive
-            </span>
-          </div>
-
-          <div className="flex flex-col justify-center">
-            <p className="font-condensed text-xs tracking-mega text-gold uppercase">
-              &ldquo;{captain.epithet}&rdquo; · {captain.role}
-            </p>
-            <h3 className="mt-2 font-display text-[clamp(2.2rem,6vw,4rem)] text-bone">
-              {captain.name}
-            </h3>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-fog">
-              He can&apos;t swim, can&apos;t navigate, and can&apos;t cook. What he can
-              do is refuse to let go — of a promise, of a friend, of the idea that the
-              freest man on the sea wears the crown.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3">
-              <div>
-                <p className="font-condensed text-[10px] tracking-mega text-fog/70 uppercase">
-                  Bounty
-                </p>
-                <p className="flex items-center gap-1.5 font-display text-2xl text-gold">
-                  <Berry className="h-5 w-5" />
-                  {captain.bounty}
-                </p>
-              </div>
-              <div>
-                <p className="font-condensed text-[10px] tracking-mega text-fog/70 uppercase">
-                  Dream
-                </p>
-                <p className="font-display text-xl text-bone">
-                  King of the Pirates
-                </p>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-
-        {/* Wanted posters */}
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
-          {rest.map((c, i) => (
-            <Reveal
-              as="article"
-              key={c.name}
-              delay={i * 80}
-              className="parchment group relative aspect-[3/4] overflow-hidden rounded-[10px] transition-transform duration-300 hover:-translate-y-1.5"
-            >
-              <div
-                className="flex h-full flex-col border-2 border-[#5a3a14]/50 px-3 py-3 text-center"
-                style={{ transform: `rotate(${(i % 2 ? 1 : -1) * 1.2}deg)` }}
-              >
-                <p className="font-display text-xl tracking-[0.12em] text-[#3a2a12] sm:text-2xl">
-                  WANTED
-                </p>
-                <div className="relative my-2 flex flex-1 flex-col items-center justify-center gap-2 overflow-hidden border border-dashed border-[#5a3a14]/40 bg-[#d8c092]/60">
-                  <span
-                    className="absolute h-28 w-28 rounded-full opacity-25 blur-xl"
-                    style={{ background: c.accent }}
-                  />
-                  <JollyRoger className="relative h-20 w-20 text-[#3a2a12]/45 sm:h-24 sm:w-24" />
-                  <span className="relative font-condensed text-[8px] tracking-mega text-[#5a3a14]/70 uppercase">
-                    Identity Unknown
-                  </span>
-                </div>
-                <p className="font-display text-base leading-none text-[#2a1e0e] sm:text-lg">
-                  {c.name}
-                </p>
-                <p className="mt-0.5 font-condensed text-[10px] tracking-wide-caps text-[#5a3a14] uppercase">
-                  &ldquo;{c.epithet}&rdquo;
-                </p>
-                <p className="mt-1.5 flex items-center justify-center gap-1 font-display text-sm text-[#7a1a10]">
-                  <Berry className="h-3.5 w-3.5" />
-                  {c.bounty}
-                </p>
-                <p className="mt-1 font-condensed text-[8px] tracking-mega text-[#5a3a14]/80 uppercase">
-                  {c.role} · Dead or Alive
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        {CREW.map((m, i) => (
+          <Profile key={m.slug} member={m} index={i} />
+        ))}
       </div>
     </section>
   )

@@ -36,25 +36,23 @@ export default function WorldBand() {
           ))}
         </div>
 
-        {/* CTA */}
+        {/* closing band */}
         <Reveal className="mt-20 flex flex-col items-center gap-6 rounded-3xl border border-gold/25 bg-gradient-to-b from-surface to-ink px-6 py-16 text-center">
           <p className="font-jp text-lg tracking-[0.3em] text-gold">
             海賊王に、おれはなる！
           </p>
           <h3 className="font-display text-[clamp(2rem,6vw,3.75rem)] text-bone">
-            SET SAIL WITH THE CREW
+            &ldquo;I&apos;M GONNA BE KING OF THE PIRATES&rdquo;
           </h3>
           <p className="max-w-md text-sm leading-relaxed text-fog">
-            All eight episodes of the voyage across the East Blue are streaming now.
+            One captain, four crewmates, and a straw hat that has to be given back
+            one day. Start with the people.
           </p>
           <a
-            href="#top"
+            href="#crew"
             className="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3.5 font-condensed text-sm font-medium tracking-wide-caps text-ink uppercase transition-transform hover:scale-[1.03]"
           >
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
-              <path d="M8 5.14v13.72a1 1 0 0 0 1.54.84l10.4-6.86a1 1 0 0 0 0-1.68L9.54 4.3A1 1 0 0 0 8 5.14Z" />
-            </svg>
-            Play Episode 1
+            Meet the Straw Hats
           </a>
         </Reveal>
       </div>

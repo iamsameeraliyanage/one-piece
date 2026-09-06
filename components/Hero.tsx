@@ -2,10 +2,19 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-function PlayIcon({ className = '' }: { className?: string }) {
+function ArrowIcon({ className = '' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
-      <path d="M8 5.14v13.72a1 1 0 0 0 1.54.84l10.4-6.86a1 1 0 0 0 0-1.68L9.54 4.3A1 1 0 0 0 8 5.14Z" />
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
   )
 }
@@ -143,9 +152,9 @@ export default function Hero() {
       <div className="relative z-30 mx-auto w-full max-w-[1400px] px-5 pb-14 sm:px-8 sm:pb-24">
         <p className="mb-4 flex items-center gap-2.5 font-condensed text-xs tracking-mega text-fog uppercase">
           <span className="grid h-5 w-5 place-items-center rounded-[4px] bg-pirate font-display text-[11px] text-white">
-            N
+            &#9760;
           </span>
-          Series · Live Action
+          The Straw Hat Pirates
         </p>
 
         <h1 className="font-display text-bone [font-size:clamp(3.4rem,15vw,11rem)]">
@@ -153,38 +162,38 @@ export default function Hero() {
         </h1>
 
         <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 font-condensed text-sm tracking-wide-caps text-fog uppercase">
-          <span className="text-gold">2026</span>
+          <span className="text-gold">Monkey D. Luffy</span>
           <span className="h-1 w-1 rounded-full bg-fog/50" />
-          <span>Adventure</span>
+          <span>Captain</span>
           <span className="h-1 w-1 rounded-full bg-fog/50" />
-          <span>Season 1 · 8 Episodes</span>
+          <span>East Blue</span>
           <span className="rounded border border-white/25 px-1.5 py-0.5 text-[11px] text-bone">
-            16+
+            Gomu Gomu no Mi
           </span>
         </div>
 
         <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-bone/85 sm:text-base">
-          Gold Roger owned everything the world had to offer, and left it all in one
-          place. Now a boy made of rubber sets out with an empty crew and a borrowed
-          straw hat to find it.
+          Five outcasts who would never have met on land — a rubber-bodied captain, a
+          three-sword swordsman, a weather-witch navigator, a lying sniper and a
+          kicking cook. This is who they are, where they come from, and what they can
+          do.
           {showSynopsis && (
             <span className="mt-3 block text-fog">
-              Monkey D. Luffy has never seen the sea he wants to conquer. Between him
-              and the Grand Line stand the Marines, a circus of pirate captains, and a
-              fish-man who runs the East Blue on fear. He&apos;ll need a swordsman, a
-              navigator, a sniper and a cook — and none of them are looking to be
-              found.
+              Gol D. Roger left everything he owned in one place at the end of the
+              Grand Line and called it the One Piece. Luffy wants it — not for the
+              gold, but for what finding it would make him: the freest man on the sea.
+              First he needs a crew.
             </span>
           )}
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <a
-            href="#trailers"
+            href="#crew"
             className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-condensed text-sm font-medium tracking-wide-caps text-ink uppercase transition-transform hover:scale-[1.03]"
           >
-            <PlayIcon className="h-4 w-4" />
-            Play Trailer
+            Meet the Crew
+            <ArrowIcon className="h-4 w-4" />
           </a>
           <button
             type="button"
@@ -192,7 +201,7 @@ export default function Hero() {
             aria-expanded={showSynopsis}
             className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3 font-condensed text-sm tracking-wide-caps text-bone uppercase backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-white/10"
           >
-            {showSynopsis ? 'Hide' : 'Synopsis'}
+            {showSynopsis ? 'Less' : 'The Dream'}
           </button>
         </div>
       </div>
