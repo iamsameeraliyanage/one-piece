@@ -6,7 +6,7 @@
  * Environment Variables) to the real deployment URL. The fallback below is only
  * used for local builds and should be corrected once the domain is known.
  */
-const FALLBACK_URL = 'https://one-piece-sameera.vercel.app'
+const FALLBACK_URL = 'https://one-piece-three-ecru.vercel.app'
 
 export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? FALLBACK_URL).replace(
   /\/+$/,
